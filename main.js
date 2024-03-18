@@ -33,7 +33,14 @@ const botSay = document.getElementById('botSay');
 const userSay = document.getElementById('userSay');
 let init = 0;
 
+userSay.focus();
+
 function userAnswer() {
+    if (userSay.value === '') {
+        userSay.focus();
+        return alert('Masukkan jawaban Anda');
+    }
+
     init++;
 
     switch (init) {
@@ -41,13 +48,19 @@ function userAnswer() {
             botSay.innerHTML = `Hallo ${userSay.value}, berapa umur kamu?`;
             break;
         case 2:
-            botSay.innerHTML = `Oh ${userSay.value}, apa hobi kamu?`;
+            const age = parseInt(userSay.value);
+            if (isNaN(age)) {
+                alert('Masukkan hanya angka untuk umur.');
+                init--;
+            } else {
+                botSay.innerHTML = `Oh ${age}, apa hobi kamu?`;
+            }
             break;
         case 3:
             botSay.innerHTML = `Wow, aku juga suka ${userSay.value}, apa kamu sudah punya pacar?`;
             break;
         case 4:
-            botSay.innerHTML = (userSay.value === 'sudah') ? 'Wah, semoga langgeng ya. Goodbye!!!' : 'oh gitu ya, aku doain semoga kamu cepat dapat pacar, fighting!!';
+            botSay.innerHTML = (userSay.value === 'sudah') ? 'Wah, semoga langgeng ya. Goodbye!!!' : 'Oh gitu ya, aku doain semoga kamu cepat dapat pacar, fighting!!';
             document.getElementById('userSection').remove();
             break;
         default:
@@ -57,6 +70,3 @@ function userAnswer() {
     userSay.value = '';
     userSay.focus();
 }
-
-
-
